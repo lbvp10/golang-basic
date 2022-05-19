@@ -9,6 +9,7 @@ import (
 func main() {
 	fmt.Println("leyendo ficheros linea linea")
 	open, err := os.Open("./eje12-ficheros/stand_by_me.txt")
+	defer open.Close()
 	if err != nil {
 		fmt.Println("Hubo un error" + err.Error())
 	} else {
