@@ -27,7 +27,7 @@ func imprimirNumeros(numeros int) {
 	}
 }
 func imprimirNumeros2(numeros int) {
-	fmt.Println("Numeros")
+	fmt.Println("Prueba suggestion Github")
 	for i := 0; i < numeros; i++ {
 		log.Println(i)
 		time.Sleep(400 * time.Millisecond)
