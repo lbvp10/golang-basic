@@ -26,3 +26,10 @@ func imprimirNumeros(numeros int) {
 		time.Sleep(400 * time.Millisecond)
 	}
 }
+func imprimirNumeros2(numeros int) {
+	fmt.Println("Prueba suggestion Github")
+	for i := 0; i < numeros; i++ {
+		log.Println(i)
+		time.Sleep(400 * time.Millisecond)
+	}
+}
