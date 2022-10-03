@@ -81,4 +81,7 @@ func main() {
 	//Casteo con libreria strConv -> numero a string
 	conv := strconv.Itoa(year)
 	fmt.Printf("%v => %T => %d conv\n", conv, conv, unsafe.Sizeof(conv))
+
+	var nombreVacion string = string(0)
+	fmt.Printf("String vacio %v  ", nombreVacion)
 }
