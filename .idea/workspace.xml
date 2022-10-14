@@ -4,13 +4,14 @@
     <option name="autoReloadType" value="ALL" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5cd2ef65-089f-4478-9d5c-de6299354bef" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/eje15-servidor_web/index.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/eje15-servidor_web/main.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/eje16-error/main.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/eje17-punteros/main.go" afterDir="false" />
+    <list default="true" id="5cd2ef65-089f-4478-9d5c-de6299354bef" name="Changes" comment="avances">
+      <change afterPath="$PROJECT_DIR$/eje100-hacker-ranck/main.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eje18-estructuras_refuerzo/main.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eje19-asincronia/main.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/go.mod" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/eje02-variables/main..go" beforeDir="false" afterPath="$PROJECT_DIR$/eje02-variables/main..go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/eje10-estructuras/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/eje10-estructuras/main.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/eje11-interfaces/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/eje11-interfaces/main.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -26,6 +27,7 @@
   </component>
   <component name="GOROOT" url="file:///usr/local/opt/go/libexec" />
   <component name="Git.Settings">
+    <branch-grouping />
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="MarkdownSettingsMigration">
@@ -61,54 +63,57 @@
       <recent name="$PROJECT_DIR$" />
     </key>
   </component>
-  <component name="RunManager" selected="Go Build.go build main.go">
-    <configuration name="go build main..go" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
-      <module name="golang-basic" />
-      <working_directory value="$PROJECT_DIR$" />
-      <kind value="FILE" />
-      <directory value="$PROJECT_DIR$" />
-      <filePath value="$PROJECT_DIR$/eje02-variables/main..go" />
-      <method v="2" />
-    </configuration>
+  <component name="RunManager" selected="Go Build.go build modulos/eje19-asincronia">
     <configuration name="go build main.go (1)" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
       <module name="golang-basic" />
       <working_directory value="$PROJECT_DIR$" />
       <kind value="FILE" />
       <directory value="$PROJECT_DIR$" />
-      <filePath value="$PROJECT_DIR$/eje15-servidor_web/main.go" />
+      <filePath value="$PROJECT_DIR$/eje100-hacker-ranck/main.go" />
       <method v="2" />
     </configuration>
-    <configuration name="go build main.go (3)" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
+    <configuration name="go build main.go (2)" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
       <module name="golang-basic" />
       <working_directory value="$PROJECT_DIR$" />
       <kind value="FILE" />
       <directory value="$PROJECT_DIR$" />
-      <filePath value="$PROJECT_DIR$/eje16-error/main.go" />
+      <filePath value="$PROJECT_DIR$/eje18-estructuras_refuerzo/main.go" />
       <method v="2" />
     </configuration>
-    <configuration name="go build main.go (4)" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
+    <configuration name="go build modulos/eje10-estructuras" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
       <module name="golang-basic" />
       <working_directory value="$PROJECT_DIR$" />
-      <kind value="FILE" />
+      <kind value="PACKAGE" />
+      <package value="modulos/eje10-estructuras" />
       <directory value="$PROJECT_DIR$" />
-      <filePath value="$PROJECT_DIR$/eje07-closure/main.go" />
+      <filePath value="$PROJECT_DIR$/eje10-estructuras/main.go" />
       <method v="2" />
     </configuration>
-    <configuration name="go build main.go" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
+    <configuration name="go build modulos/eje11-interfaces" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
       <module name="golang-basic" />
       <working_directory value="$PROJECT_DIR$" />
-      <kind value="FILE" />
+      <kind value="PACKAGE" />
+      <package value="modulos/eje11-interfaces" />
       <directory value="$PROJECT_DIR$" />
-      <filePath value="$PROJECT_DIR$/eje17-punteros/main.go" />
+      <filePath value="$PROJECT_DIR$/eje11-interfaces/main.go" />
+      <method v="2" />
+    </configuration>
+    <configuration name="go build modulos/eje19-asincronia" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
+      <module name="golang-basic" />
+      <working_directory value="$PROJECT_DIR$" />
+      <kind value="PACKAGE" />
+      <package value="modulos/eje19-asincronia" />
+      <directory value="$PROJECT_DIR$" />
+      <filePath value="$PROJECT_DIR$/eje19-asincronia/main.go" />
       <method v="2" />
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Go Build.go build main.go" />
-        <item itemvalue="Go Build.go build main.go (3)" />
-        <item itemvalue="Go Build.go build main.go (4)" />
-        <item itemvalue="Go Build.go build main..go" />
+        <item itemvalue="Go Build.go build modulos/eje19-asincronia" />
+        <item itemvalue="Go Build.go build modulos/eje10-estructuras" />
+        <item itemvalue="Go Build.go build modulos/eje11-interfaces" />
         <item itemvalue="Go Build.go build main.go (1)" />
+        <item itemvalue="Go Build.go build main.go (2)" />
       </list>
     </recent_temporary>
   </component>
@@ -119,6 +124,11 @@
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
       <map>
+        <entry key="88c33ac7-e7b9-42f1-b189-814bbb686e54">
+          <value>
+            <State />
+          </value>
+        </entry>
         <entry key="MAIN">
           <value>
             <State />
@@ -126,6 +136,15 @@
         </entry>
       </map>
     </option>
+    <option name="OPEN_GENERIC_TABS">
+      <map>
+        <entry key="88c33ac7-e7b9-42f1-b189-814bbb686e54" value="TOOL_WINDOW" />
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="avances" />
+    <option name="LAST_COMMIT_MESSAGE" value="avances" />
   </component>
   <component name="VgoProject">
     <settings-migrated>true</settings-migrated>

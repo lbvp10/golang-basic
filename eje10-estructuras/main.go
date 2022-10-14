@@ -1,8 +1,8 @@
 package main
 
 import (
-	"./persona"
 	"fmt"
+	"modulos/eje10-estructuras/persona"
 	"time"
 )
 

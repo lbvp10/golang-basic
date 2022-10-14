@@ -1,7 +1,7 @@
 package main
 
 import (
-	_interface "./interface"
+	_interface "modulos/eje11-interfaces/interface"
 )
 
 func main() {
