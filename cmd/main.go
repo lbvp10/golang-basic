@@ -3,9 +3,10 @@ package main
 import (
 	"fmt"
 	"github.com/gofiber/fiber/v2"
-	"log"
+	"orm/db"
+	"orm/producto"
+	"orm/server"
 	"os"
-	"vacaciones/server"
 )
 
 func main() {
@@ -16,7 +17,8 @@ func main() {
 	}
 	server.AddRutas(app)
 
-	//db.ConnDB()
+	db.ConnDB()
+	db.ConfigShema(&producto.Producto{})
 
-	log.Fatalln(app.Listen(fmt.Sprintf(":%v", port)))
+	app.Listen(fmt.Sprintf(":%v", port))
 }

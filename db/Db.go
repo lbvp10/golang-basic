@@ -1,12 +1,13 @@
 package db
 
 import (
-	"database/sql"
 	"fmt"
-	_ "github.com/lib/pq" // add this
+	"gorm.io/driver/postgres"
+	"gorm.io/gorm"
 	"log"
 	"os"
 	"sync"
+	"time"
 )
 
 var (
@@ -18,12 +19,11 @@ var (
 
 var (
 	once  sync.Once
-	db    *sql.DB
+	db    *gorm.DB
 	dbErr error
 )
 
-// Connect to database
-func ConnDB() (*sql.DB, error) {
+func ConnDB() (*gorm.DB, error) {
 	once.Do(func() {
 		if user == "" {
 			user = "postgres"
@@ -37,32 +37,42 @@ func ConnDB() (*sql.DB, error) {
 		if port == "" {
 			port = "25432"
 		}
-		connStr := fmt.Sprintf("postgres://%s:%s@%s:%s/golang?sslmode=disable", user, password, ip, port)
-		db, dbErr = sql.Open("postgres", connStr)
+
+		dsn := fmt.Sprintf("host=%s user=%s password=%s dbname=%s port=%s sslmode=disable", ip, user, password, "api-rest-orm", port)
+		db, dbErr = gorm.Open(postgres.Open(dsn), &gorm.Config{})
+
 		if dbErr != nil {
 			log.Fatal(dbErr)
 		}
-		pingErr := db.Ping()
-		if pingErr != nil {
-			log.Fatal(pingErr)
-		}
+
 		log.Println("Connected!")
+
+		configPool()
+
 	})
+
 	return db, dbErr
 }
 
-func Exec(query string, args ...interface{}) (sql.Result, error) {
-	result, err := db.Exec(query, args...)
-	if err != nil {
-		log.Fatal(err)
-	}
-	return result, err
+func ConfigShema[T interface{}](class T) {
+	// Migrate the schema
+	db.AutoMigrate(class)
 }
 
-func Query(query string, args ...interface{}) (*sql.Rows, error) {
-	rows, err := db.Query(query, args...)
+func configPool() {
+	sqlDB, err := db.DB()
+
+	// SetMaxIdleConns sets the maximum number of connections in the idle connection pool.
+	sqlDB.SetMaxIdleConns(10)
+
+	// SetMaxOpenConns sets the maximum number of open connections to the database.
+	sqlDB.SetMaxOpenConns(100)
+
+	// SetConnMaxLifetime sets the maximum amount of time a connection may be reused.
+	sqlDB.SetConnMaxLifetime(time.Hour)
+
 	if err != nil {
-		log.Fatal(err)
+		log.Fatalf("Error configurando el pool de conexiones..... %v", err)
 	}
-	return rows, err
+
 }
