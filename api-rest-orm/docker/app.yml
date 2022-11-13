@@ -1,7 +1,7 @@
 version: '2'
 services:
   api-rest-orm:
-    image: api-rest-orm
+    build: ../
     environment:
       - PORT_DB=5432
       - IP_DB=api-postgres
