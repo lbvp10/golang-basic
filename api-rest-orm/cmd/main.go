@@ -10,12 +10,14 @@ import (
 )
 
 func main() {
-	app := fiber.New()
-	port := os.Getenv("PORT")
-	if port == "" {
+	var port string
+	if port = os.Getenv("PORT"); port == "" {
 		port = "3000"
 	}
-	server.AddRutas(app)
+
+	app := fiber.New()
+
+	server.ConfigServer(app)
 
 	db.ConnDB()
 	db.ConfigShema(&producto.Producto{})

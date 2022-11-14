@@ -2,16 +2,26 @@ package server
 
 import (
 	"github.com/gofiber/fiber/v2"
+	"github.com/gofiber/fiber/v2/middleware/requestid"
 	"log"
 	p "orm/producto"
 )
 
-func AddRutas(app *fiber.App) {
-	app.Get("/", getHandler)
-	app.Get("/:id<int>", getByIdHandler)
-	app.Post("/", postHandler)
-	app.Put("/", putHandler)
-	app.Delete("/:id<int>", deleteHandler)
+const LOG_FORMAT = "${pid} [${ip}]:${port} ${locals:requestid} ${latency} ${status} - ${method} ${path} ${reqHeaders} ${body} ${resBody} ${yellow}\n"
+
+func ConfigServer(app *fiber.App) {
+	// Middleware
+	router := app.Group("/api", requestid.New(), Log)
+	addRutas(router)
+}
+
+func addRutas(api fiber.Router) {
+
+	api.Get("/", getHandler)
+	api.Get("/:id<int>", getByIdHandler)
+	api.Post("/", postHandler)
+	api.Put("/", putHandler)
+	api.Delete("/:id<int>", deleteHandler)
 }
 
 func getByIdHandler(ctx *fiber.Ctx) error {
@@ -45,7 +55,7 @@ func deleteHandler(ctx *fiber.Ctx) error {
 func loadProductByRequest(c *fiber.Ctx) *p.Producto {
 	producto := p.Producto{}
 	if err := c.BodyParser(&producto); err != nil {
-		log.Fatalf("An error occured: %v", err)
+		log.Printf("An error occured: %v", err)
 	}
 	return &producto
 }
