@@ -3,7 +3,7 @@
 
 ## **Run App**
 
-`docker-compose -f ./docker/app.yml up`
+`docker-compose -f ./api-rest-orm/docker/app.yml up `
 
 **cURLs**
 ----------

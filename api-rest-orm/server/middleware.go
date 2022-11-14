@@ -4,7 +4,6 @@ import (
 	"encoding/json"
 	"github.com/gofiber/fiber/v2"
 	"log"
-	"os"
 	"time"
 )
 
@@ -35,25 +34,18 @@ func Log(ctx *fiber.Ctx) error {
 		ResquestId: ctx.Locals("requestid").(string),
 	}
 	result := ctx.Next()
-	logStruct.Status = ctx.Response().StatusCode()
-	logStruct.EndTime = time.Now().Format(DATE_FORMAT)
-	logStruct.Duration = time.Since(t).Milliseconds()
-
-	if getConfigLogs() {
+	if GetConfigLogs() {
 		logStruct.RequestHeader = ctx.GetReqHeaders()
 		logStruct.RequestParam = ctx.Request().URI().QueryArgs().String()
 		logStruct.ResponseBody = string(ctx.Response().Body()[:])
 	}
 
+	logStruct.Status = ctx.Response().StatusCode()
+	logStruct.EndTime = time.Now().Format(DATE_FORMAT)
+	logStruct.Duration = time.Since(t).Milliseconds()
+
 	logStr, _ := json.Marshal(logStruct)
 	log.Printf("%s", string(logStr))
 
 	return result
-}
-
-func getConfigLogs() bool {
-	if os.Getenv("LOG_FULL") == "false" {
-		return false
-	}
-	return true
 }

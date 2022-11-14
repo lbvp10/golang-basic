@@ -7,8 +7,6 @@ import (
 	p "orm/producto"
 )
 
-const LOG_FORMAT = "${pid} [${ip}]:${port} ${locals:requestid} ${latency} ${status} - ${method} ${path} ${reqHeaders} ${body} ${resBody} ${yellow}\n"
-
 func ConfigServer(app *fiber.App) {
 	// Middleware
 	router := app.Group("/api", requestid.New(), Log)
