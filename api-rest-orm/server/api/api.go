@@ -7,7 +7,7 @@ import (
 	"time"
 )
 
-type LogStruct struct {
+type LogApiStruct struct {
 	IP            string            `json:"ip"`
 	URL           string            `json:"url"`
 	StartTime     string            `json:"start_time"`
@@ -15,23 +15,23 @@ type LogStruct struct {
 	Duration      int64             `json:"duration"`
 	Status        int               `json:"status"`
 	Method        string            `json:"method"`
-	ResquestId    string            `json:"resquest_id"`
-	RequestBody   string            `json:"requet_body"`
+	RequestId     string            `json:"request_id"`
+	RequestBody   string            `json:"request_body"`
 	RequestHeader map[string]string `json:"request_header"`
 	RequestParam  string            `json:"request_param"`
 	ResponseBody  string            `json:"response_body"`
 }
 
-func Log(ctx *fiber.Ctx) error {
+func LogApi(ctx *fiber.Ctx) error {
 
 	t := time.Now()
 
-	logStruct := LogStruct{
-		IP:         ctx.IP(),
-		URL:        ctx.OriginalURL(),
-		StartTime:  t.Format(DATE_FORMAT),
-		Method:     ctx.Method(),
-		ResquestId: ctx.Locals("requestid").(string),
+	logStruct := LogApiStruct{
+		IP:        ctx.IP(),
+		URL:       ctx.OriginalURL(),
+		StartTime: t.Format(DATE_FORMAT),
+		Method:    ctx.Method(),
+		RequestId: ctx.Locals("requestid").(string),
 	}
 	result := ctx.Next()
 	if GetConfigLogs() {
