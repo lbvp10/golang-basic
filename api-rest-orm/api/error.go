@@ -1,4 +1,4 @@
-package server
+package api_rest_orm
 
 import "fmt"
 
