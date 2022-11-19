@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
-	"log"
+	"orm/logger"
 	"os"
 	"sync"
 	"time"
@@ -31,10 +31,10 @@ func ConnDB() (*gorm.DB, error) {
 		db, dbErr = gorm.Open(postgres.Open(dsn), &gorm.Config{})
 
 		if dbErr != nil {
-			log.Fatal(dbErr)
+			logger.Fatal(dbErr.Error())
 		}
 
-		log.Println("Connected!")
+		logger.Info("Connected!")
 
 		configPool()
 
@@ -61,7 +61,7 @@ func configPool() {
 	sqlDB.SetConnMaxLifetime(time.Hour)
 
 	if err != nil {
-		log.Fatalf("Error configurando el pool de conexiones..... %v", err)
+		logger.Fatal(fmt.Sprintf("Error configurando el pool de conexiones..... %v", err))
 	}
 
 }

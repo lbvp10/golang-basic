@@ -7,6 +7,8 @@ services:
       - IP_DB=api-postgres
       - PASSWORD_DB=postgres
       - USER_DB=postgres
+      - LOG_LEVEL=debug
+      - LOG_FULL=true
     ports:
       - 23000:3000
     depends_on:

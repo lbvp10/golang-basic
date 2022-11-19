@@ -1,10 +1,8 @@
 package api
 
 import (
-	"encoding/json"
 	"fmt"
 	"github.com/gofiber/fiber/v2"
-	"orm/api"
 	"orm/logger"
 	"os"
 	"time"
@@ -14,10 +12,10 @@ func LogApi(ctx *fiber.Ctx) error {
 
 	t := time.Now()
 
-	logStruct := api.RequestApiStruct{
+	logStruct := RequestApiStruct{
 		IP:        ctx.IP(),
 		URL:       ctx.OriginalURL(),
-		StartTime: t.Format(api.DATE_FORMAT),
+		StartTime: t.Format(DATE_FORMAT),
 		Method:    ctx.Method(),
 		RequestId: ctx.Locals("requestid").(string),
 	}
@@ -29,11 +27,10 @@ func LogApi(ctx *fiber.Ctx) error {
 	}
 
 	logStruct.Status = ctx.Response().StatusCode()
-	logStruct.EndTime = time.Now().Format(api.DATE_FORMAT)
+	logStruct.EndTime = time.Now().Format(DATE_FORMAT)
 	logStruct.Duration = time.Since(t).Milliseconds()
 
-	logStr, _ := json.Marshal(logStruct)
-	logger.Info(fmt.Sprintf("%s", string(logStr)))
+	logger.InfoF(fmt.Sprintf("%s %s", ctx.Method(), logStruct.URL), logStruct)
 
 	return result
 }

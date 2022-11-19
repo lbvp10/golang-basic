@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"github.com/gofiber/fiber/v2"
 	"orm/db"
+	"orm/logger"
 	"orm/producto"
 	"orm/server"
 	"os"
@@ -14,6 +15,8 @@ func main() {
 	if port = os.Getenv("PORT"); port == "" {
 		port = "3000"
 	}
+	level := os.Getenv("LOG_LEVEL")
+	logger.ConfigLogs(level)
 
 	app := fiber.New()
 

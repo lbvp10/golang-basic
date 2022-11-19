@@ -1,4 +1,4 @@
-package api_rest_orm
+package api
 
 import "fmt"
 

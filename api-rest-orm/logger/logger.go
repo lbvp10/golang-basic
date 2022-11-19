@@ -1,22 +1,22 @@
-package log
+package logger
 
-/**Desacoplar y simplificar la libreria logrus Logs*/
+/** Desacoplar y simplificar la libreria Logrus Logs */
 import (
 	"github.com/sirupsen/logrus"
 	"os"
 	"sync"
 )
 
+const eventName = "x_event"
+
 var logger *logrus.Logger
 var once sync.Once
-
-type FieldsLogs map[string]interface{}
 
 func ConfigLogs(level string) {
 	once.Do(func() {
 		logger = &logrus.Logger{
 			Out:       os.Stdout,
-			Formatter: &logrus.JSONFormatter{},
+			Formatter: &logrus.JSONFormatter{PrettyPrint: false},
 			Hooks:     make(logrus.LevelHooks),
 			Level:     logrus.DebugLevel,
 		}
@@ -53,22 +53,23 @@ func Warn(msg string) {
 	logger.Warn(msg)
 }
 
-func TraceF(msg string, logFields FieldsLogs) {
-	logger.WithFields(logrus.Fields(logFields)).Trace(msg)
+func TraceF(msg string, logFields interface{}) {
+
+	logger.WithFields(logrus.Fields{eventName: logFields}).Trace(msg)
 }
-func InfoF(msg string, logFields FieldsLogs) {
-	logger.WithFields(logrus.Fields(logFields)).Info(msg)
+func InfoF(msg string, logFields interface{}) {
+	logger.WithFields(logrus.Fields{eventName: logFields}).Info(msg)
 }
-func DebugF(msg string, logFields FieldsLogs) {
-	logger.WithFields(logrus.Fields(logFields)).Debug(msg)
+func DebugF(msg string, logFields interface{}) {
+	logger.WithFields(logrus.Fields{eventName: logFields}).Debug(msg)
 }
-func ErrorF(msg string, logFields FieldsLogs) {
-	logger.WithFields(logrus.Fields(logFields)).Error(msg)
+func ErrorF(msg string, logFields interface{}) {
+	logger.WithFields(logrus.Fields{eventName: logFields}).Error(msg)
 }
-func FatalF(msg string, logFields FieldsLogs) {
-	logger.WithFields(logrus.Fields(logFields)).Fatal(msg)
+func FatalF(msg string, logFields interface{}) {
+	logger.WithFields(logrus.Fields{eventName: logFields}).Fatal(msg)
 }
 
-func WarnF(msg string, logFields FieldsLogs) {
-	logger.WithFields(logrus.Fields(logFields)).Warn(msg)
+func WarnF(msg string, logFields interface{}) {
+	logger.WithFields(logrus.Fields{eventName: logFields}).Warn(msg)
 }
