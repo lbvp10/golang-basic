@@ -1,16 +1,47 @@
 package api
 
-import "fmt"
+import (
+	"net/http"
+	"orm/logger"
+)
+
+type CauseList []interface{}
 
 type ErrorApi struct {
-	Code    string `json:"code"`
-	Status  string `json:"status"`
-	Message string `json:"message"`
+	Message string    `json:"message"`
+	Cause   CauseList `json:"cause"`
+	Code    string    `json:"code"`
+	Status  int       `json:"status"`
 }
 
-var (
-	ErrEntityAlreadyExists = fmt.Errorf("entity already exists")
-	ErrEntityIDNotProvided = fmt.Errorf("entity id not provided")
-	ErrEntityNotFound      = fmt.Errorf("entity not found")
-	ErrEntityOutOfRange    = fmt.Errorf("entity out of range")
-)
+func NewApiError(message string, error string, status int, cause CauseList) ErrorApi {
+	errorApi := ErrorApi{Message: message, Status: status, Cause: cause}
+	logger.ErrorF(errorApi.Message, error)
+	return errorApi
+}
+
+func NewNotFoundApiError(message string) ErrorApi {
+	errorApi := ErrorApi{Message: message, Status: http.StatusNotFound, Code: "not_found"}
+	return errorApi
+}
+
+func NewBadRequestApiError(message string) ErrorApi {
+	errorApi := ErrorApi{Message: message, Status: http.StatusBadRequest, Code: "bad_request"}
+	return errorApi
+}
+
+func NewValidationApiError(message string, error string, cause CauseList) ErrorApi {
+	errorApi := ErrorApi{Message: message, Status: http.StatusConflict, Code: "conflict"}
+	logger.ErrorF(errorApi.Message, error)
+	return errorApi
+}
+
+func NewInternalServerApiError(err error, code string) ErrorApi {
+	cause := CauseList{}
+	if err != nil {
+		cause = append(cause, err.Error())
+	}
+	errorApi := ErrorApi{Message: "internal_server_error", Status: http.StatusInternalServerError, Cause: cause}
+	logger.ErrorF(errorApi.Message, errorApi)
+	return errorApi
+}

@@ -29,8 +29,11 @@ func getByIdHandler(ctx *fiber.Ctx) error {
 	id, _ := ctx.ParamsInt("id")
 	producto, err := p.GetById(uint(id))
 	if err != nil {
-		logger.Error(fmt.Sprintf("Error getById de la db %v", err))
-		return ctx.Status(http.StatusInternalServerError).JSON(error2.ErrorApi{Message: "Error getById de la db", Code: "1005"})
+		errorApi := error2.NewInternalServerApiError(err, "Error getById de la db")
+		return ctx.Status(errorApi.Status).JSON(errorApi)
+	} else if producto == nil {
+		errorApi := error2.NewNotFoundApiError("")
+		return ctx.Status(errorApi.Status).JSON(errorApi)
 	}
 	return ctx.JSON(producto)
 }
@@ -38,43 +41,43 @@ func getByIdHandler(ctx *fiber.Ctx) error {
 func getHandler(ctx *fiber.Ctx) error {
 	productos, err := p.GetAll()
 	if err != nil {
-		logger.Error(fmt.Sprintf("api consultando los productos %v\n", err))
-		return ctx.Status(http.StatusInternalServerError).JSON(error2.ErrorApi{Message: "Error get en la db", Code: "1004"})
+		errorApi := error2.NewInternalServerApiError(err, "api consultando los productos")
+		return ctx.Status(errorApi.Status).JSON(errorApi)
 	}
 	return ctx.JSON(productos)
 
 }
 func postHandler(ctx *fiber.Ctx) error {
 	producto, _ := loadProductByRequest(ctx)
-	result := p.Save(producto)
-	if result.Error != nil {
-		logger.Error(fmt.Sprintf("Error guardando la db %v", result.Error))
-		return ctx.Status(http.StatusInternalServerError).JSON(error2.ErrorApi{Message: "Error guardando en la db", Code: "1003"})
+	err := p.Save(producto)
+	if err != nil {
+		errorApi := error2.NewInternalServerApiError(err, "Error guardando en la db")
+		return ctx.Status(errorApi.Status).JSON(errorApi)
 	}
 	return ctx.JSON(producto)
 }
 func putHandler(ctx *fiber.Ctx) error {
 	producto, _ := loadProductByRequest(ctx)
-	result := p.Update(producto)
-	if result.Error != nil {
-		logger.Error(fmt.Sprintf("Error actualizando la db %v", result.Error))
-		return ctx.Status(http.StatusInternalServerError).JSON(error2.ErrorApi{Message: "Error actualizando en la db", Code: "1002"})
+	err := p.Update(producto)
+	if err.Error != nil {
+		errorApi := error2.NewInternalServerApiError(err, "Error actualizando la db")
+		return ctx.Status(errorApi.Status).JSON(errorApi)
 	}
 	return ctx.JSON(producto)
 }
+
 func deleteHandler(ctx *fiber.Ctx) error {
 	id, _ := ctx.ParamsInt("id")
-	error := p.Delete(uint(id))
+	err, rowsDeleted := p.Delete(uint(id))
 
-	if error != nil {
-		logger.Error(fmt.Sprintf("Error delete %v", error))
-		msgError, codeError := "Error delete", http.StatusInternalServerError
-		if error == error2.ErrEntityNotFound {
-			msgError, codeError = error2.ErrEntityNotFound.Error(), http.StatusNotFound
-		}
-		return ctx.Status(codeError).JSON(error2.ErrorApi{Message: msgError, Code: "1001"})
+	if err != nil {
+		errorApi := error2.NewInternalServerApiError(err, "Error Delete")
+		return ctx.Status(errorApi.Status).JSON(errorApi)
+	} else if rowsDeleted < 1 {
+		errorApi := error2.NewNotFoundApiError("Delete not found")
+		return ctx.Status(errorApi.Status).JSON(errorApi)
+
 	}
-
 	return ctx.SendStatus(200)
 
 }

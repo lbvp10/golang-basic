@@ -1,3 +1,3 @@
 package api
 
-const DATE_FORMAT = "2006-01-02T15:04:05-0700"
+const DateFormat = "2006-01-02T15:04:05-0700"

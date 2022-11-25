@@ -2,7 +2,6 @@ package producto
 
 import (
 	"gorm.io/gorm"
-	"orm/api"
 	"orm/db"
 	"time"
 )
@@ -29,23 +28,20 @@ func GetById(id uint) (*Producto, error) {
 	return &producto, result.Error
 }
 
-func Save(producto *Producto) *gorm.DB {
+func Save(producto *Producto) error {
 	ddb, _ := db.ConnDB()
 	result := ddb.Create(&producto)
-	return result
+	return result.Error
 }
 
-func Update(producto *Producto) *gorm.DB {
+func Update(producto *Producto) error {
 	ddb, _ := db.ConnDB()
 	result := ddb.Save(&producto)
-	return result
+	return result.Error
 }
 
-func Delete(id uint) error {
+func Delete(id uint) (error, int64) {
 	ddb, _ := db.ConnDB()
 	result := ddb.Delete(&Producto{}, id)
-	if result.Error == nil && result.RowsAffected < 1 {
-		return api.ErrEntityNotFound
-	}
-	return result.Error
+	return result.Error, result.RowsAffected
 }

@@ -15,7 +15,7 @@ func LogApi(ctx *fiber.Ctx) error {
 	logStruct := RequestApiStruct{
 		IP:        ctx.IP(),
 		URL:       ctx.OriginalURL(),
-		StartTime: t.Format(DATE_FORMAT),
+		StartTime: t.Format(DateFormat),
 		Method:    ctx.Method(),
 		RequestId: ctx.Locals("requestid").(string),
 	}
@@ -27,7 +27,7 @@ func LogApi(ctx *fiber.Ctx) error {
 	}
 
 	logStruct.Status = ctx.Response().StatusCode()
-	logStruct.EndTime = time.Now().Format(DATE_FORMAT)
+	logStruct.EndTime = time.Now().Format(DateFormat)
 	logStruct.Duration = time.Since(t).Milliseconds()
 
 	logger.InfoF(fmt.Sprintf("%s %s", ctx.Method(), logStruct.URL), logStruct)
